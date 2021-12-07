@@ -1,0 +1,96 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        markup = pango
+        interval = 5
+        color_good = '#2f343f'
+		color_degraded = '#ebcb8b'
+		color_bad = '#ba5e57'
+}
+
+#order += "player"
+order += "load"
+#order += "memory"
+order += "imap"
+order += "cpu_temperature 0"
+#order += "disk /"
+#order += "disk /home"
+order += "ethernet enp1s0"
+order += "wireless wlo1"
+order += "volume master"
+order += "battery 1"
+order += "tztime local"
+
+load {
+        format = "<span background='#f59335'>  %5min Load </span>"
+}
+
+player {
+	format = "<span background='#f59335'>   %player  </span>"
+}
+
+memory {
+	format = "<span background='#fba6f1'>%free Free</span>"
+}
+
+imap {
+	
+}
+
+cpu_temperature 0 {
+        format = "<span background='#bf616a'>  %degrees °C </span>"
+        path = "/sys/class/thermal/thermal_zone5/temp"
+}
+
+disk "/" {
+        format = "<span background='#fec7cd'>  %free Free </span>"
+}
+
+disk "/home" {
+        format = "<span background='#a1d569'>  %free Free </span>"
+}
+
+ethernet enp1s0 {
+        format_up = "<span background='#88c0d0'>  %ip </span>"
+        format_down = "<span background='#88c0d0'>  Disconnected </span>"
+}
+
+wireless wlo1 {
+        format_up = "<span background='#b48ead'>  %essid </span>"
+        format_down = "<span background='#b48ead'>  Disconnected </span>"
+}
+
+volume master {
+        format = "<span background='#ebcb8b'>  %volume </span>"
+        format_muted = "<span background='#ebcb8b'> 🔇 </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+	on_click 1 = "exec pavucontrol"
+	#on_click 1 = "exec amixer -q sset Master 5%+"
+	on_click 3 = "exec amixer -q sset Master 5%-"
+	on_click 2 = "exec amixer -q sset Master toggle"
+	on_click 4 = "exec amixer -q sset Master 5%+"
+	on_click 5 = "exec amixer -q sset Master 5%-"
+
+}
+
+battery 1 {
+	last_full_capacity = true
+        format = "<span background='#a3be8c'>  %status %percentage </span>"
+        format_down = "No Battery"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "Unknown"
+        status_full = "Charged"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+	on_click 1 = "exec mate-power-preferences"
+}
+
+tztime local {
+		format = "<span background='#81a1c1'> %time </span>"
+		format_time = " %a %-d %b %H:%M:%S"
+		
+}
+

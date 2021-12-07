@@ -1,0 +1,111 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        markup = pango
+        interval = 5
+        color_good = '#ef343f'
+		color_degraded = '#ebcb8b'
+		color_bad = '#ba5e57'
+}
+
+order += "spotify"
+#order += "load"
+#order += "memory"
+#order += "imap"
+order += "cpu_temperature 0"
+#order += "disk /"
+#order += "disk /home"
+order += "ethernet enp1s0"
+order += "wireless wlo1"
+order += "volume master"
+order += "battery 1"
+#order += "pomodoro"
+order += "tztime local"
+
+load {
+        format = "<span color='red'>  %5min Load </span>"
+}
+
+spotify {
+	format = "<span background = 'green' color='white'> :  {title}</span>"
+  	format_down = '<span background='grey' color='white'></span>'
+  	format_stopped = '<span background='grey' color='white'></span>'
+  	on_click 1 = ' exec spotify'
+  	#on_click 3 = 'exec killall -r "spotify*"'
+}
+
+memory {
+	format = "<span color='yellow'>%free Free</span>"
+}
+
+imap {
+	
+}
+
+cpu_temperature 0 {
+        format = "<span color='yellow'>  %degrees °C </span>"
+        path = "/sys/class/thermal/thermal_zone5/temp"
+}
+
+disk "/" {
+        format = "<span>  %free Free </span>"
+}
+
+disk "/home" {
+        format = "<span>  %free Free </span>"
+}
+
+ethernet enp1s0 {
+        format_up = "<span color='blue'>  %ip </span>"
+        format_down = "<span volor='blue'>  Disconnected </span>"
+}
+
+wireless wlo1 {
+        format_up = "<span color='pink'>  %essid </span>"
+        format_down = "<span color = 'pink'>  Disconnected </span>"
+	on_click 1 = "exec nm-connection-editor"
+}
+
+volume master {
+        format = "<span color='aqua'>  %volume </span>"
+        format_muted = "<span color='aqua'> 🔇 </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+	on_click 1 = "exec pavucontrol"
+	#on_click 1 = "exec amixer -q sset Master 5%+"
+	on_click 3 = "exec amixer -q sset Master 5%-"
+	on_click 2 = "exec amixer -q sset Master toggle"
+	on_click 4 = "exec amixer -q sset Master 5%+"
+	on_click 5 = "exec amixer -q sset Master 5%-"
+
+}
+
+battery 1 {
+	last_full_capacity = true
+        format = "<span color='#11ef2b'>  %status   %percentage </span>"
+        format_down = "No Battery"
+        status_chr = ""
+        status_bat = " "
+        status_unk = "Unknown"
+        status_full = " "
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+	on_click 1 = "exec mate-power-preferences"
+}
+
+tztime local {
+		format = "<span background='#81a1c1'> %time </span>"
+		format_time = " %a %-d %b  %H:%M:%S"
+		
+}
+
+pomodoro {
+        
+        display_bar = true
+        format = "<span color='red' background='white'> %bar </span>"
+        timer_pomodoro = 2500
+        timer_break = 500
+        sound_pomodoro_end = " "
+        sound_pomodoro_start = " "
+}
