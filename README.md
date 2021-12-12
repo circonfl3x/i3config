@@ -8,6 +8,7 @@ alacritty
 mate-power-manager
 nm-applet (network-manager-applet)
 mate-polkit
+nitrogen
 
 
 ***POLYBAR DEPENDENCIES***
