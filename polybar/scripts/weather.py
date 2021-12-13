@@ -21,11 +21,9 @@ temp = str(c.json().get('main')).split(',')[0].replace("{'temp':", "")
 weather = str(c.json().get('weather')).split(',')[1].replace("'main': ", "").replace("'","")
 
 
-    
 print(f" {temp}⁰C {weather}")
 prevWeather = f" {temp}⁰C {weather}"
 #sleep(1000*60*15)
-    
 
 
 
